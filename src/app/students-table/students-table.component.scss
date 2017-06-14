@@ -1,9 +1,24 @@
 $light: lightgreen;
 $dark: darkseagreen;
-$border-color: gray;
+
+$day-width: 40px;
+$day-width-full: 80px;
+$padding: 8px;
+$border-v-color: #ddd;
+$border-h-color: #787878;
 
 /**
- * Containers for tables
+ * Options bar
+ */
+.options {
+  //background: $border-v-color;
+  border-bottom: 1px solid $border-h-color;
+  padding: 5px;
+  text-align: right;
+}
+
+/**
+ * Tables
  */
 .table-container {
   &.mini-user-data {
@@ -24,12 +39,19 @@ $border-color: gray;
     width: 500px;
     float: left;
     transition: width .5s;
+    border-right: 2px solid $border-v-color;
 
     .mini-icon {
       cursor: pointer;
 
       &:hover {
         color: gray;
+      }
+    }
+
+    tbody {
+      tr td {
+        border-left: 1px solid $border-v-color;
       }
     }
   }
@@ -40,59 +62,161 @@ $border-color: gray;
     float: left;
     overflow-x: scroll;
     transition: width .5s;
-    table-layout: fixed;
 
-    /* WTF?! */
-    .week-number th {
-      width: calc(100% / 18);
+    &.table-calender--full-time > div {
+      width: calc(8 * (100% - 500px)); /* TODO */
+
+      .row.month > div {
+        &.month--28 {
+          width: 28 * $day-width-full;
+        }
+        &.month--30 {
+          width: 29 * $day-width-full;
+        }
+        &.month--30 {
+          width: 30 * $day-width-full;
+        }
+        &.month--31 {
+          width: 31 * $day-width-full;
+        }
+      }
+
+      .row.week-number > div {
+        width: calc(7 * #{$day-width-full} + 1px);
+      }
+
+      .row.day-number > div {
+        width: calc((7 * #{$day-width-full}) + 1px);
+
+        div {
+          width: $day-width-full;
+        }
+      }
+
+      .row.data > div {
+        width: $day-width-full;
+
+        span.full-time {
+          display: inline-block;
+        }
+      }
     }
 
-    /* WTF?! */
     > div {
-      width: calc(4 * (100% - 500px));
-    }
-  }
-}
+      width: calc(4 * (100% - 500px)); /* TODO */
 
-/**
- * Tables elements
- */
-thead {
-  tr.main {
-    .month {
-      text-align: center;
-    }
-    .month-light {
-      background: $light;
-    }
-    .month-dark {
-      background: $dark;
-    }
-  }
+      .row {
+        margin-right: 0;
+        margin-left: 0;
+        padding: $padding;
+        line-height: 1.42857143;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        border-bottom: 1px solid $border-v-color;
 
-  tr.week-number th {
-    text-align: center;
-    border-left: 1px solid $border-color;
-  }
-
-  tr.description th {
-    border-left: 1px solid $border-color;
-
-    &.date-offset {
-      text-align: center;
-
-      &.date-offset-light {
-        background: lighten($light, 20%);
+        > div {
+          float: left;
+        }
       }
-      &.date-offset-dark {
-        background: lighten($dark, 20%);
+
+      .row.th {
+        font-weight: bold;
+        text-align: center;
+
+        border-bottom: 2px solid $border-v-color;
+      }
+
+      /**
+       * Table rows
+       */
+      .row.month {
+        padding: 0;
+
+        > div {
+          padding: $padding;
+
+          &.month--28 {
+            width: 28 * $day-width;
+          }
+          &.month--30 {
+            width: 29 * $day-width;
+          }
+          &.month--30 {
+            width: 30 * $day-width;
+          }
+          &.month--31 {
+            width: 31 * $day-width;
+          }
+
+          &.month--light {
+            background: $light;
+          }
+          &.month--dark {
+            background: $dark;
+          }
+        }
+      }
+
+      .row.week-number {
+        padding: 0;
+
+        > div {
+          padding: $padding;
+          width: calc(7 * #{$day-width} + 1px);
+          font-weight: bold;
+          border-right: 1px solid $border-h-color;
+        }
+      }
+
+      .row.day-number {
+        padding: 0;
+
+        > div {
+          width: calc((7 * #{$day-width}) + 1px);
+          border-right: 1px solid $border-h-color;
+
+
+          div {
+            padding: $padding;
+            padding-left: 0;
+            padding-right: 0;
+            float: left;
+            width: $day-width;
+            font-weight: bold;
+            text-align: center;
+
+            &.current-day {
+              background: yellow;
+            }
+          }
+        }
+      }
+
+      .row.data {
+        padding: 0;
+
+        > div {
+          padding: $padding;
+          padding-left: 0;
+          padding-right: 0;
+          height: 100%;
+
+          width: $day-width;
+          text-align: center;
+
+          &.current-day {
+            background: yellow;
+
+            &:before {
+              content: "\00a0"; /* &nbsp */
+            }
+          }
+
+          span.full-time {
+            display: none;
+          }
+        }
       }
     }
-  }
-}
-
-tbody {
-  tr td {
-    border-left: 1px solid $border-color;
   }
 }
