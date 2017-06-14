@@ -6,6 +6,7 @@ $day-width-full: 80px;
 $padding: 8px;
 $border-v-color: #ddd;
 $border-h-color: #787878;
+$odd-background: rgba(197, 241, 255, 0.58);
 
 /**
  * Options bar
@@ -64,7 +65,7 @@ $border-h-color: #787878;
     transition: width .5s;
 
     &.table-calender--full-time > div {
-      width: calc(8 * (100% - 500px)); /* TODO */
+      width: 6000px; /* TODO */
 
       .row.month > div {
         &.month--28 {
@@ -97,13 +98,14 @@ $border-h-color: #787878;
         width: $day-width-full;
 
         span.full-time {
-          display: inline-block;
+          font-size: 1em;
         }
       }
     }
 
     > div {
-      width: calc(4 * (100% - 500px)); /* TODO */
+      width: 3000px; /* TODO */
+      transition: width .5s;
 
       .row {
         margin-right: 0;
@@ -134,6 +136,7 @@ $border-h-color: #787878;
 
         > div {
           padding: $padding;
+          transition: width .5s;
 
           &.month--28 {
             width: 28 * $day-width;
@@ -165,6 +168,7 @@ $border-h-color: #787878;
           width: calc(7 * #{$day-width} + 1px);
           font-weight: bold;
           border-right: 1px solid $border-h-color;
+          transition: width .5s;
         }
       }
 
@@ -174,7 +178,7 @@ $border-h-color: #787878;
         > div {
           width: calc((7 * #{$day-width}) + 1px);
           border-right: 1px solid $border-h-color;
-
+          transition: width .5s;
 
           div {
             padding: $padding;
@@ -184,10 +188,16 @@ $border-h-color: #787878;
             width: $day-width;
             font-weight: bold;
             text-align: center;
+            transition: width .5s;
 
             &.current-day {
               background: yellow;
             }
+          }
+
+          &:nth-child(odd) div:nth-child(odd),
+          &:nth-child(even) div:nth-child(even) {
+            background: $odd-background;
           }
         }
       }
@@ -199,21 +209,31 @@ $border-h-color: #787878;
           padding: $padding;
           padding-left: 0;
           padding-right: 0;
-          height: 100%;
+          box-sizing: content-box;
 
           width: $day-width;
           text-align: center;
+          transition: width .5s;
+
+          &:before {
+            content: "\00a0"; /* &nbsp */
+          }
+
+          &:nth-child(odd) {
+            background: $odd-background;
+          }
+
+          &:nth-child(7n) {
+            border-right: 1px solid $border-h-color;
+          }
 
           &.current-day {
             background: yellow;
-
-            &:before {
-              content: "\00a0"; /* &nbsp */
-            }
           }
 
           span.full-time {
-            display: none;
+            font-size: 0;
+            transition: .5s;
           }
         }
       }

@@ -47,12 +47,8 @@ export class StudentsTableComponent implements OnInit {
 
   updateCalenderFullTimeView() {
     if (this.isCalenderFullTime) {
-      console.log('add');
-
       this.renderer.addClass(this.tableCalender.nativeElement, 'table-calender--full-time');
     } else {
-      console.log('remove');
-
       this.renderer.removeClass(this.tableCalender.nativeElement, 'table-calender--full-time');
     }
   }
