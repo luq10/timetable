@@ -1,0 +1,98 @@
+$light: lightgreen;
+$dark: darkseagreen;
+$border-color: gray;
+
+/**
+ * Containers for tables
+ */
+.table-container {
+  &.mini-user-data {
+    .table-user-data {
+      width: 200px;
+
+      .mini-hidden {
+        display: none;
+      }
+    }
+
+    .table-calender {
+      width: calc(100% - 200px);
+    }
+  }
+
+  .table-user-data {
+    width: 500px;
+    float: left;
+    transition: width .5s;
+
+    .mini-icon {
+      cursor: pointer;
+
+      &:hover {
+        color: gray;
+      }
+    }
+  }
+
+  .table-calender {
+    width: calc(100% - 500px);
+    height: 100%;
+    float: left;
+    overflow-x: scroll;
+    transition: width .5s;
+    table-layout: fixed;
+
+    /* WTF?! */
+    .week-number th {
+      width: calc(100% / 18);
+    }
+
+    /* WTF?! */
+    > div {
+      width: calc(4 * (100% - 500px));
+    }
+  }
+}
+
+/**
+ * Tables elements
+ */
+thead {
+  tr.main {
+    .month {
+      text-align: center;
+    }
+    .month-light {
+      background: $light;
+    }
+    .month-dark {
+      background: $dark;
+    }
+  }
+
+  tr.week-number th {
+    text-align: center;
+    border-left: 1px solid $border-color;
+  }
+
+  tr.description th {
+    border-left: 1px solid $border-color;
+
+    &.date-offset {
+      text-align: center;
+
+      &.date-offset-light {
+        background: lighten($light, 20%);
+      }
+      &.date-offset-dark {
+        background: lighten($dark, 20%);
+      }
+    }
+  }
+}
+
+tbody {
+  tr td {
+    border-left: 1px solid $border-color;
+  }
+}
